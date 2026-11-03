@@ -126,7 +126,7 @@
 <p>So the thing that's actually hard isn't finding a recipe. It's <strong>holding five of them in your head at once and deciding which to follow.</strong></p>
 
 <h2>What it does</h2>
-<p>You say what you're making and how you want it to come out — <em>chocolate chip cookies, chewy</em>. The app pulls the recipes it has for that dish, converts every measurement to grams, and shows you each ingredient as a range across all of them, with what the spread actually does.</p>
+<p>You say what you're making and how you want it to come out — <em>chocolate chip cookies, chewy</em>. The app pulls the recipes it has for that dish, normalises every measurement onto one scale, and shows you each ingredient as a range across all of them, with what the spread actually does.</p>
 
 <figure>
   <svg viewBox="0 0 640 230" role="img" aria-label="Three ingredients shown as ranges across five recipes. Butter ranges 170 to 227 grams, brown sugar share 25 to 100 percent, flour 240 to 300 grams. The recommended chewy recipe sits at high butter, all brown sugar, and low flour.">
@@ -172,6 +172,8 @@
   <figcaption>Each dot is one real recipe. The ringed dot is the one being recommended for a chewy cookie — highest butter, all brown sugar, least flour. The ranges are the evidence; the recommendation is the conclusion.</figcaption>
 </figure>
 
+<p><strong>Cups or grams, your choice.</strong> Not everyone owns a scale, and not every recipe is written for one. You can switch the whole view between weight and volume. But the comparison itself is always computed in grams underneath, because a cup of flour is anywhere from 120 to 145 g depending on how hard you packed it — so the toggle changes what you read, never what's being compared.</p>
+
 <p><strong>It recommends a real recipe, never a blend.</strong> A published recipe has been tested by its author and a few thousand commenters. The average of five recipes has been tested by nobody. So the app points at one that exists, and shows you the ranges so you can see why it picked it — and disagree.</p>
 
 <h2>Who it's for</h2>
@@ -211,7 +213,7 @@
     <ul>
       <li>Chocolate chip cookies, then other cookies</li>
       <li>A seeded recipe corpus</li>
-      <li>Ingredient ranges in grams</li>
+      <li>Ingredient ranges, in grams or cups</li>
       <li>One recommended real recipe</li>
       <li>Accounts</li>
     </ul>
