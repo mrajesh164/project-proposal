@@ -48,9 +48,11 @@
     margin: 0 0 18px; max-width: 16ch;
   }
   .oneline {
-    font-size: 21px; line-height: 1.5; color: var(--ink-soft); margin: 0;
-    border-left: 3px solid var(--accent); padding-left: 18px;
+    font-size: 24px; line-height: 1.45; color: var(--ink); margin: 0;
+    border-left: 3px solid var(--accent); padding-left: 20px;
+    letter-spacing: -.01em;
   }
+  .oneline strong { font-weight: 700; }
 
   h2 {
     font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
@@ -106,12 +108,6 @@
   .stack td:first-child { width: 150px; font-weight: 600; white-space: nowrap; }
   .stack td:last-child { color: var(--ink-soft); font-size: 14.5px; }
 
-  .todo {
-    background: var(--accent-soft); border: 1px dashed var(--accent); border-radius: 10px;
-    padding: 16px 18px; margin: 18px 0; font-size: 15px; color: var(--ink-soft);
-  }
-  .todo b { color: var(--accent); display: block; margin-bottom: 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
-
   footer { margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 14px; }
 </style>
 </head>
@@ -121,7 +117,7 @@
 <header>
   <p class="eyebrow">Project Proposal · MPCS 51238 · Autumn 2026</p>
   <h1>Which recipe should I actually bake?</h1>
-  <p class="oneline">Searching up five recipes for one dish and deciding whose measurements to trust is overstimulating and confusing. This is a tool for home bakers that collects the recipes, shows exactly where they disagree, and recommends one.</p>
+  <p class="oneline"><strong>Home bakers</strong> comparing five recipes for one dish can't tell which one to follow — this finds them, shows where they disagree, and recommends one.</p>
 </header>
 
 <h2>The problem</h2>
@@ -180,11 +176,6 @@
 
 <h2>Who it's for</h2>
 <p>Home bakers who find their recipes online rather than in books, and who care how something comes out, not just that it works. The people I'm building this around bake somewhere between weekly and once in a while — frequently enough to have opinions about texture, not so often that they've memorised ratios.</p>
-
-<div class="todo">
-  <b>To write before submitting</b>
-  What my users told me — in their words, from talking to them. Not written yet.
-</div>
 
 <h2>My focus: Design</h2>
 <p>The problem here is cognitive load, not computation. Parsing recipes is a solved problem the moment you find the structured data; the hard part is putting five recipes on one screen so a person can take them in at a glance and make a decision. That's an interface problem, and it's where the project lives or dies.</p>
