@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Project Proposal — Maya Rajesh · Design, Build, Ship</title>
+<title>Project Proposal · Maya Rajesh · Design, Build, Ship</title>
 <meta name="description" content="A baking tool that collects recipes for one dish, shows how they disagree, and recommends one.">
 <style>
   :root {
@@ -117,16 +117,16 @@
 <header>
   <p class="eyebrow">Project Proposal · MPCS 51238 · Autumn 2026</p>
   <h1>Which recipe should I actually bake?</h1>
-  <p class="oneline"><strong>Home bakers</strong> comparing five recipes for one dish can't tell which one to follow — this finds them, shows where they disagree, and recommends one.</p>
+  <p class="oneline"><strong>Home bakers</strong> open five recipes for one dish and can't tell which one to follow, so this app collects them, shows where they disagree, and recommends one.</p>
 </header>
 
 <h2>The problem</h2>
-<p>When I bake something I haven't made in a while, I don't open one recipe. I open five. Two pastry books for cream puffs, one in metric and one in cups. A handful of chocolate chip cookie recipes where the butter and flour amounts all differ slightly.</p>
-<p>The differences aren't mistakes. A recipe with more butter spreads flatter and chewier; more flour bakes up cakier. Somebody chose those numbers on purpose. But that only helps if you can see the numbers side by side, and you can't — they're in five tabs, in three unit systems, buried in a blog post about someone's trip to Vermont.</p>
-<p>So the thing that's actually hard isn't finding a recipe. It's <strong>holding five of them in your head at once and deciding which to follow.</strong></p>
+<p>When I bake something I haven't made in a while, I don't open one recipe. I open five. Two pastry books for cream puffs, one in metric and one in cups. A handful of chocolate chip cookie recipes where the butter and flour amounts all differ a little.</p>
+<p>The differences aren't mistakes. More butter makes a cookie spread flatter and chewier. More flour makes it cakier. Someone picked those numbers on purpose. But that only helps if you can see the numbers next to each other, and you can't. They're in five tabs, in three different unit systems, at the bottom of a long blog post.</p>
+<p>Searching up that many recipes and then deciding which measurements to use is <strong>overstimulating and confusing</strong>. That's the actual problem. Finding a recipe was never the hard part.</p>
 
 <h2>What it does</h2>
-<p>You say what you're making and how you want it to come out — <em>chocolate chip cookies, chewy</em>. The app pulls the recipes it has for that dish, normalises every measurement onto one scale, and shows you each ingredient as a range across all of them, with what the spread actually does.</p>
+<p>You tell it what you're making and how you want it to turn out, like <em>chocolate chip cookies, chewy</em>. It pulls the recipes it has for that dish, puts every measurement on the same scale, and shows each ingredient as a range across all of them, with what the spread does.</p>
 
 <figure>
   <svg viewBox="0 0 640 230" role="img" aria-label="Three ingredients shown as ranges across five recipes. Butter ranges 170 to 227 grams, brown sugar share 25 to 100 percent, flour 240 to 300 grams. The recommended chewy recipe sits at high butter, all brown sugar, and low flour.">
@@ -169,25 +169,25 @@
     <text class="endlab" x="130" y="178" text-anchor="middle">240 g</text>
     <text class="endlab" x="600" y="178" text-anchor="middle">300 g</text>
   </svg>
-  <figcaption>Each dot is one real recipe. The ringed dot is the one being recommended for a chewy cookie — highest butter, all brown sugar, least flour. The ranges are the evidence; the recommendation is the conclusion.</figcaption>
+  <figcaption>Each dot is one real recipe. The ringed dot is the one recommended for a chewy cookie: highest butter, all brown sugar, least flour. You can see the ranges it used, so you can see why it picked that one.</figcaption>
 </figure>
 
-<p><strong>Cups or grams, your choice.</strong> Not everyone owns a scale, and not every recipe is written for one. You can switch the whole view between weight and volume. But the comparison itself is always computed in grams underneath, because a cup of flour is anywhere from 120 to 145 g depending on how hard you packed it — so the toggle changes what you read, never what's being compared.</p>
+<p><strong>Cups or grams, your choice.</strong> Not everyone owns a scale, and not every recipe is written for one, so you can switch the whole view between weight and volume. The comparison still runs in grams underneath. A cup of flour can be anywhere from 120 to 145 g depending on how hard you packed it, so comparing recipes in cups would show agreement that isn't really there.</p>
 
-<p><strong>It recommends a real recipe, never a blend.</strong> A published recipe has been tested by its author and a few thousand commenters. The average of five recipes has been tested by nobody. So the app points at one that exists, and shows you the ranges so you can see why it picked it — and disagree.</p>
+<p><strong>It recommends a real recipe, not a blend.</strong> A published recipe has been tested by the person who wrote it and by everyone in the comments. An average of five recipes hasn't been tested by anyone. So the app points at one that already exists, and shows the ranges behind the choice in case you want to pick a different one.</p>
 
 <h2>Who it's for</h2>
-<p>Home bakers who find their recipes online rather than in books, and who care how something comes out, not just that it works. The people I'm building this around bake somewhere between weekly and once in a while — frequently enough to have opinions about texture, not so often that they've memorised ratios.</p>
+<p>Home bakers who find their recipes online instead of in books, and who care how something turns out, not just that it works. The people I'm building this around bake somewhere between once a week and once in a while. Often enough to have opinions about texture, not often enough to have the ratios memorized.</p>
 
 <h2>My focus: Design</h2>
-<p>The problem here is cognitive load, not computation. Parsing recipes is a solved problem the moment you find the structured data; the hard part is putting five recipes on one screen so a person can take them in at a glance and make a decision. That's an interface problem, and it's where the project lives or dies.</p>
-<p>Going deep on design here means: the comparison view as a dense-data problem, where meaningful differences are visible and noise recedes. Unit normalisation so the numbers are genuinely comparable. The states when you search a dish with only two recipes, or none, or when a recipe is missing half its structured data. And a comparison grid that a screen reader can actually navigate, which is harder than anything I built in Assignments 3 through 5.</p>
+<p>The problem here is cognitive load, not computation. Once you find the structured data, parsing a recipe is straightforward. The hard part is putting five recipes on one screen so someone can take them in quickly and decide. That's an interface problem.</p>
+<p>Going deep on design means the comparison view itself: showing the differences that matter and letting the rest recede. Normalizing units so the numbers are actually comparable. The states for when a dish only has two recipes, or none, or when a recipe is missing half its structured data. And making the comparison grid work with a screen reader, which is harder than anything I built in Assignments 3 through 5.</p>
 
 <h2>Roadmap</h2>
 <table class="weeks">
   <tr>
     <td>Nov 10–17</td>
-    <td><b>Build v1</b><span>Seed a corpus of cookie recipes into Postgres by crawling and parsing their structured data. Normalise every unit to grams. Build the comparison view and the recommendation. Auth, and deploy.</span></td>
+    <td><b>Build v1</b><span>Crawl a few hundred cookie recipes, parse their structured data, and seed them into Postgres. Convert every unit to grams. Build the comparison view and the recommendation. Set up auth and deploy.</span></td>
   </tr>
   <tr>
     <td class="ship">Nov 17</td>
@@ -195,11 +195,11 @@
   </tr>
   <tr>
     <td>Nov 17–24</td>
-    <td><b>Refine the interface</b><span>The comparison view properly: empty and partial states, responsive layout, accessibility, typography. Thanksgiving week, so this is a lighter week by design.</span></td>
+    <td><b>Refine the interface</b><span>The comparison view properly: empty and partial states, responsive layout, accessibility, typography. It's Thanksgiving week, so I'm planning a lighter one.</span></td>
   </tr>
   <tr>
     <td>Nov 24–Dec 1</td>
-    <td><b>Build v2</b><span>Widen past cookies to other baked goods. A texture control you can move, rather than a fixed choice. Saved comparisons.</span></td>
+    <td><b>Build v2</b><span>Widen past cookies to other baked goods. A texture control you can slide instead of a fixed choice. Saved comparisons.</span></td>
   </tr>
   <tr>
     <td class="ship">Dec 1</td>
@@ -234,27 +234,27 @@
       <li>Generating new recipes</li>
       <li>Manual recipe entry</li>
       <li>A cooking log</li>
-      <li>Savoury cooking</li>
+      <li>Savory cooking</li>
     </ul>
   </div>
 </div>
 
 <h3>Why a seeded corpus instead of live search</h3>
-<p class="quiet">Free search APIs got much worse this year — Google's Custom Search JSON API is closed to new customers and shuts down in January 2027, and Brave withdrew its free tier. Rather than build v1 on a quota that might vanish, I crawl a few hundred recipes once and search my own table. It costs nothing, it's instant, and it works at the fair without a network. Live search becomes a v2 question.</p>
+<p class="quiet">Free search APIs got a lot worse this year. Google's Custom Search JSON API is closed to new customers and shuts down in January 2027, and Brave withdrew its free tier. I don't want to build v1 on a quota that might disappear, so I'll crawl a few hundred recipes once and search my own table instead. It costs nothing, it's fast, and it works at the fair even if the wifi doesn't. Live search can be a v2 question.</p>
 
 <h3>How I'll know it works</h3>
-<p class="quiet">Two things I can measure. First, parser health: what fraction of the recipes I crawl give me complete, usable structured data. Second, the actual job — give someone a dish and a texture and time how long it takes them to choose a recipe and say why, against the five-tabs version they do today.</p>
+<p class="quiet">Two things I can measure. First, how many of the recipes I crawl give me complete, usable structured data. Second, the actual job: give someone a dish and a texture, and time how long it takes them to pick a recipe and explain why, compared to doing it with five tabs.</p>
 
 <h2>Stack</h2>
 <table class="stack">
-  <tr><td>Next.js + Tailwind</td><td>What I built Assignments 3 through 5 in. No learning curve spent on the framework.</td></tr>
-  <tr><td>Supabase Postgres</td><td>Holds the recipe corpus and the normalised ingredients. The comparison is a query, not a computation.</td></tr>
-  <tr><td>Clerk</td><td>Accounts, already wired in previous assignments.</td></tr>
+  <tr><td>Next.js + Tailwind</td><td>What I built Assignments 3 through 5 in, so I won't spend any of the four weeks learning the framework.</td></tr>
+  <tr><td>Supabase Postgres</td><td>Holds the recipe corpus and the normalized ingredients, so the comparison is just a query.</td></tr>
+  <tr><td>Clerk</td><td>Accounts. Already wired up in previous assignments.</td></tr>
   <tr><td>Vercel</td><td>Hosting, free tier.</td></tr>
-  <tr><td>schema.org JSON-LD</td><td>The data source. Recipe sites embed structured ingredients and ratings for Google. Free, keyless, no quota, no scraping heuristics.</td></tr>
+  <tr><td>schema.org JSON-LD</td><td>The data source. Recipe sites embed structured ingredients and ratings for Google to read. It's free, there's no key and no quota, and I don't have to guess at the HTML.</td></tr>
   <tr><td>Playwright</td><td>End-to-end tests, already set up in <code>wanderlist2</code>.</td></tr>
-  <tr><td>Supabase MCP</td><td>Already in my <code>.mcp.json</code>. Lets the agent work on the schema and run queries directly while I build the corpus.</td></tr>
-  <tr><td>Chrome DevTools MCP</td><td>For a design-focused project, the agent needs to see what it renders — inspect computed styles and check states rather than guess.</td></tr>
+  <tr><td>Supabase MCP</td><td>Already in my <code>.mcp.json</code>. Lets the agent work on the schema and run queries while I build the corpus.</td></tr>
+  <tr><td>Chrome DevTools MCP</td><td>This is a design project, so the agent needs to see what it renders. It can check computed styles and states instead of guessing.</td></tr>
   <tr><td>Claude Code</td><td>The build itself.</td></tr>
   <tr><td>Vercel &amp; Supabase CLIs</td><td>Deploys and migrations from the terminal.</td></tr>
 </table>
