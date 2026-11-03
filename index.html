@@ -125,7 +125,7 @@
 <p>Searching up that many recipes and then deciding which measurements to use is <strong>overstimulating and confusing</strong>. That's the actual problem. Finding a recipe was never the hard part.</p>
 
 <h2>What it does</h2>
-<p>You tell it what you're making and how you want it to turn out, like <em>chocolate chip cookies, chewy</em>. It pulls the recipes it has for that dish, puts every measurement on the same scale, and shows each ingredient as a range across all of them, with what the spread does.</p>
+<p>You search for what you're making and how you want it to turn out, like <em>chocolate chip cookies, chewy</em>. It finds the recipes for that dish, puts every measurement on the same scale, and shows each ingredient as a range across all of them, with what the spread does.</p>
 
 <figure>
   <svg viewBox="0 0 640 230" role="img" aria-label="Three ingredients shown as ranges across five recipes. Butter ranges 170 to 227 grams, brown sugar share 25 to 100 percent, flour 240 to 300 grams. The recommended chewy recipe sits at high butter, all brown sugar, and low flour.">
@@ -175,12 +175,16 @@
 
 <p><strong>It recommends a real recipe, not a blend.</strong> A published recipe has been tested by the person who wrote it and by everyone in the comments. An average of five recipes hasn't been tested by anyone. So the app points at one that already exists, and shows the ranges behind the choice in case you want to pick a different one.</p>
 
+<p><strong>You can save what you bake.</strong> Once you've picked a recipe, it goes in your account, so the cookies you made in November are still there in February and you don't have to search for them again. The saved collection is the part I'm most interested in building out. Once the app knows what you actually bake and how you like it, the recommendations stop being generic and start being yours.</p>
+
 <h2>Who it's for</h2>
 <p>Home bakers who find their recipes online instead of in books, and who care how something turns out, not just that it works. The people I'm building this around bake somewhere between once a week and once in a while. Often enough to have opinions about texture, not often enough to have the ratios memorized.</p>
 
 <h2>My focus: Design</h2>
 <p>The problem here is cognitive load, not computation. Once you find the structured data, parsing a recipe is straightforward. The hard part is putting five recipes on one screen so someone can take them in quickly and decide. That's an interface problem.</p>
 <p>Going deep on design means the comparison view itself: showing the differences that matter and letting the rest recede. Normalizing units so the numbers are actually comparable. The states for when a dish only has two recipes, or none, or when a recipe is missing half its structured data. And making the comparison grid work with a screen reader.</p>
+<p>It also has to be fun. Baking is something people do because they enjoy it, and a tool that feels like a spreadsheet is a tool people close. I want this to feel good to use, not just correct.</p>
+<p>And it has to work where baking actually happens. People will open this standing in a kitchen with flour on their hands and the phone propped against something, reading it from a foot away while the butter softens. That rules out small tap targets, long scrolls, and anything that needs two hands or careful aim.</p>
 
 <h2>Roadmap</h2>
 <table class="weeks">
@@ -211,10 +215,11 @@
     <h4>In v1</h4>
     <ul>
       <li>Chocolate chip cookies, then other cookies</li>
+      <li>Search by dish and texture</li>
       <li>A seeded recipe corpus</li>
       <li>Ingredient ranges, in grams or cups</li>
       <li>One recommended real recipe</li>
-      <li>Accounts</li>
+      <li>Accounts, and saving the recipes you pick</li>
     </ul>
   </div>
   <div class="col">
@@ -222,7 +227,8 @@
     <ul>
       <li>Other baked goods</li>
       <li>A movable texture control</li>
-      <li>Saved comparisons</li>
+      <li>Recommendations based on what you've saved</li>
+      <li>Saved comparisons, not just saved recipes</li>
       <li>Live search beyond the corpus</li>
     </ul>
   </div>
