@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Proposal — Maya Rajesh · Design, Build, Ship</title>
+<meta name="description" content="A baking tool that collects recipes for one dish, shows how they disagree, and recommends one.">
+<style>
+  :root {
+    --bg: #fdfbf7;
+    --panel: #ffffff;
+    --ink: #22201d;
+    --ink-soft: #5c5650;
+    --ink-faint: #918a81;
+    --line: #e7e1d7;
+    --accent: #9c4a1a;
+    --accent-soft: #fbf0e7;
+    --pick: #2f6b4f;
+    --pick-soft: #ecf4ef;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1917; --panel: #232020; --ink: #f2eee8; --ink-soft: #b9b2a8;
+      --ink-faint: #8d867c; --line: #37322e; --accent: #e0905c; --accent-soft: #2d2118;
+      --pick: #83c3a0; --pick-soft: #1d2823;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 22px 100px; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 ui-sans-serif, -apple-system, "SF Pro Text", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .85em;
+    background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 4px;
+  }
+
+  header { padding: 72px 0 8px; }
+  .eyebrow {
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 600; margin: 0 0 14px;
+  }
+  h1 {
+    font-size: 40px; line-height: 1.12; letter-spacing: -.025em;
+    margin: 0 0 18px; max-width: 16ch;
+  }
+  .oneline {
+    font-size: 21px; line-height: 1.5; color: var(--ink-soft); margin: 0;
+    border-left: 3px solid var(--accent); padding-left: 18px;
+  }
+
+  h2 {
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 600;
+    margin: 64px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  h3 { font-size: 18px; margin: 28px 0 8px; }
+  p { margin: 0 0 14px; }
+  .quiet { color: var(--ink-soft); }
+
+  blockquote {
+    margin: 18px 0; padding: 2px 0 2px 20px;
+    border-left: 3px solid var(--line); color: var(--ink-soft); font-style: italic;
+  }
+
+  /* diagram */
+  figure { margin: 24px 0; padding: 22px 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-faint); }
+  .ax { stroke: var(--line); stroke-width: 1.5; }
+  .dot { fill: var(--ink-faint); }
+  .dot-pick { fill: var(--pick); }
+  .ring { fill: none; stroke: var(--pick); stroke-width: 2; }
+  .rowlab { fill: var(--ink); font-size: 13px; font-weight: 600; font-family: ui-sans-serif, system-ui, sans-serif; }
+  .endlab { fill: var(--ink-faint); font-size: 11px; font-family: ui-sans-serif, system-ui, sans-serif; }
+  .effect { fill: var(--ink-soft); font-size: 11.5px; font-style: italic; font-family: ui-sans-serif, system-ui, sans-serif; }
+
+  /* lists */
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin-bottom: 7px; }
+
+  /* week table */
+  .weeks { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+  .weeks td { padding: 13px 12px 13px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .weeks tr:last-child td { border-bottom: 0; }
+  .weeks td:first-child { width: 128px; white-space: nowrap; color: var(--ink-faint); font-weight: 600; font-size: 14px; }
+  .weeks b { display: block; margin-bottom: 2px; }
+  .weeks span { color: var(--ink-soft); font-size: 14.5px; }
+  .ship { color: var(--accent); }
+
+  /* scope columns */
+  .scope { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 6px; }
+  .col { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .col h4 { margin: 0 0 10px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+  .col ul { padding-left: 17px; margin: 0; }
+  .col li { font-size: 14.5px; margin-bottom: 6px; color: var(--ink-soft); }
+  .col.out li { text-decoration: line-through; text-decoration-color: var(--line); }
+
+  /* stack */
+  .stack { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .stack td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .stack tr:last-child td { border-bottom: 0; }
+  .stack td:first-child { width: 150px; font-weight: 600; white-space: nowrap; }
+  .stack td:last-child { color: var(--ink-soft); font-size: 14.5px; }
+
+  .todo {
+    background: var(--accent-soft); border: 1px dashed var(--accent); border-radius: 10px;
+    padding: 16px 18px; margin: 18px 0; font-size: 15px; color: var(--ink-soft);
+  }
+  .todo b { color: var(--accent); display: block; margin-bottom: 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+
+  footer { margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Project Proposal · MPCS 51238 · Autumn 2026</p>
+  <h1>Which recipe should I actually bake?</h1>
+  <p class="oneline">Searching up five recipes for one dish and deciding whose measurements to trust is overstimulating and confusing. This is a tool for home bakers that collects the recipes, shows exactly where they disagree, and recommends one.</p>
+</header>
+
+<h2>The problem</h2>
+<p>When I bake something I haven't made in a while, I don't open one recipe. I open five. Two pastry books for cream puffs, one in metric and one in cups. A handful of chocolate chip cookie recipes where the butter and flour amounts all differ slightly.</p>
+<p>The differences aren't mistakes. A recipe with more butter spreads flatter and chewier; more flour bakes up cakier. Somebody chose those numbers on purpose. But that only helps if you can see the numbers side by side, and you can't — they're in five tabs, in three unit systems, buried in a blog post about someone's trip to Vermont.</p>
+<p>So the thing that's actually hard isn't finding a recipe. It's <strong>holding five of them in your head at once and deciding which to follow.</strong></p>
+
+<h2>What it does</h2>
+<p>You say what you're making and how you want it to come out — <em>chocolate chip cookies, chewy</em>. The app pulls the recipes it has for that dish, converts every measurement to grams, and shows you each ingredient as a range across all of them, with what the spread actually does.</p>
+
+<figure>
+  <svg viewBox="0 0 640 230" role="img" aria-label="Three ingredients shown as ranges across five recipes. Butter ranges 170 to 227 grams, brown sugar share 25 to 100 percent, flour 240 to 300 grams. The recommended chewy recipe sits at high butter, all brown sugar, and low flour.">
+    <!-- butter -->
+    <text class="rowlab" x="0" y="34">Butter</text>
+    <text class="effect" x="0" y="50">more = chewier</text>
+    <line class="ax" x1="130" y1="34" x2="600" y2="34"/>
+    <circle class="dot" cx="130"   cy="34" r="4"/>
+    <circle class="dot" cx="253.7" cy="34" r="4"/>
+    <circle class="dot" cx="377.4" cy="34" r="4"/>
+    <circle class="dot" cx="501"   cy="34" r="4"/>
+    <circle class="dot-pick" cx="600" cy="34" r="5"/>
+    <circle class="ring" cx="600" cy="34" r="9"/>
+    <text class="endlab" x="130" y="18" text-anchor="middle">170 g</text>
+    <text class="endlab" x="600" y="18" text-anchor="middle">227 g</text>
+
+    <!-- brown sugar -->
+    <text class="rowlab" x="0" y="114">Brown sugar</text>
+    <text class="effect" x="0" y="130">more = softer</text>
+    <line class="ax" x1="130" y1="114" x2="600" y2="114"/>
+    <circle class="dot" cx="130"   cy="114" r="4"/>
+    <circle class="dot" cx="224"   cy="114" r="4"/>
+    <circle class="dot" cx="286.7" cy="114" r="4"/>
+    <circle class="dot" cx="443.3" cy="114" r="4"/>
+    <circle class="dot-pick" cx="600" cy="114" r="5"/>
+    <circle class="ring" cx="600" cy="114" r="9"/>
+    <text class="endlab" x="130" y="98" text-anchor="middle">25% of sugar</text>
+    <text class="endlab" x="600" y="98" text-anchor="middle">100%</text>
+
+    <!-- flour -->
+    <text class="rowlab" x="0" y="194">Flour</text>
+    <text class="effect" x="0" y="210">more = cakier</text>
+    <line class="ax" x1="130" y1="194" x2="600" y2="194"/>
+    <circle class="dot" cx="130"   cy="194" r="4"/>
+    <circle class="dot-pick" cx="208.3" cy="194" r="5"/>
+    <circle class="ring" cx="208.3" cy="194" r="9"/>
+    <circle class="dot" cx="325.8" cy="194" r="4"/>
+    <circle class="dot" cx="443.3" cy="194" r="4"/>
+    <circle class="dot" cx="600"   cy="194" r="4"/>
+    <text class="endlab" x="130" y="178" text-anchor="middle">240 g</text>
+    <text class="endlab" x="600" y="178" text-anchor="middle">300 g</text>
+  </svg>
+  <figcaption>Each dot is one real recipe. The ringed dot is the one being recommended for a chewy cookie — highest butter, all brown sugar, least flour. The ranges are the evidence; the recommendation is the conclusion.</figcaption>
+</figure>
+
+<p><strong>It recommends a real recipe, never a blend.</strong> A published recipe has been tested by its author and a few thousand commenters. The average of five recipes has been tested by nobody. So the app points at one that exists, and shows you the ranges so you can see why it picked it — and disagree.</p>
+
+<h2>Who it's for</h2>
+<p>Home bakers who find their recipes online rather than in books, and who care how something comes out, not just that it works. The people I'm building this around bake somewhere between weekly and once in a while — frequently enough to have opinions about texture, not so often that they've memorised ratios.</p>
+
+<div class="todo">
+  <b>To write before submitting</b>
+  What my users told me — in their words, from talking to them. Not written yet.
+</div>
+
+<h2>My focus: Design</h2>
+<p>The problem here is cognitive load, not computation. Parsing recipes is a solved problem the moment you find the structured data; the hard part is putting five recipes on one screen so a person can take them in at a glance and make a decision. That's an interface problem, and it's where the project lives or dies.</p>
+<p>Going deep on design here means: the comparison view as a dense-data problem, where meaningful differences are visible and noise recedes. Unit normalisation so the numbers are genuinely comparable. The states when you search a dish with only two recipes, or none, or when a recipe is missing half its structured data. And a comparison grid that a screen reader can actually navigate, which is harder than anything I built in Assignments 3 through 5.</p>
+<p>I considered the AI focus — it's the one area I haven't touched this quarter. But the model's job in this project is converting "1½ sticks" into 170 g, which is plumbing. Building the project around plumbing would mean choosing a focus against the grain of the problem.</p>
+
+<h2>Roadmap</h2>
+<table class="weeks">
+  <tr>
+    <td>Nov 10–17</td>
+    <td><b>Build v1</b><span>Seed a corpus of cookie recipes into Postgres by crawling and parsing their structured data. Normalise every unit to grams. Build the comparison view and the recommendation. Auth, and deploy.</span></td>
+  </tr>
+  <tr>
+    <td class="ship">Nov 17</td>
+    <td><b class="ship">v1 ships</b><span>Works end to end: search a dish, pick a texture, see the ranges, get a recipe.</span></td>
+  </tr>
+  <tr>
+    <td>Nov 17–24</td>
+    <td><b>Refine the interface</b><span>The comparison view properly: empty and partial states, responsive layout, accessibility, typography. Thanksgiving week, so this is a lighter week by design.</span></td>
+  </tr>
+  <tr>
+    <td>Nov 24–Dec 1</td>
+    <td><b>Build v2</b><span>Widen past cookies to other baked goods. A texture control you can move, rather than a fixed choice. Saved comparisons.</span></td>
+  </tr>
+  <tr>
+    <td class="ship">Dec 1</td>
+    <td><b class="ship">v2, at the fair</b><span></span></td>
+  </tr>
+</table>
+
+<div class="scope">
+  <div class="col">
+    <h4>In v1</h4>
+    <ul>
+      <li>Chocolate chip cookies, then other cookies</li>
+      <li>A seeded recipe corpus</li>
+      <li>Ingredient ranges in grams</li>
+      <li>One recommended real recipe</li>
+      <li>Accounts</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h4>Waits for v2</h4>
+    <ul>
+      <li>Other baked goods</li>
+      <li>A movable texture control</li>
+      <li>Saved comparisons</li>
+      <li>Live search beyond the corpus</li>
+    </ul>
+  </div>
+  <div class="col out">
+    <h4>Not doing</h4>
+    <ul>
+      <li>TikTok recipes</li>
+      <li>Generating new recipes</li>
+      <li>Manual recipe entry</li>
+      <li>A cooking log</li>
+      <li>Savoury cooking</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Why a seeded corpus instead of live search</h3>
+<p class="quiet">Free search APIs got much worse this year — Google's Custom Search JSON API is closed to new customers and shuts down in January 2027, and Brave withdrew its free tier. Rather than build v1 on a quota that might vanish, I crawl a few hundred recipes once and search my own table. It costs nothing, it's instant, and it works at the fair without a network. Live search becomes a v2 question.</p>
+
+<h3>How I'll know it works</h3>
+<p class="quiet">Two things I can measure. First, parser health: what fraction of the recipes I crawl give me complete, usable structured data. Second, the actual job — give someone a dish and a texture and time how long it takes them to choose a recipe and say why, against the five-tabs version they do today.</p>
+
+<h2>Stack</h2>
+<table class="stack">
+  <tr><td>Next.js + Tailwind</td><td>What I built Assignments 3 through 5 in. No learning curve spent on the framework.</td></tr>
+  <tr><td>Supabase Postgres</td><td>Holds the recipe corpus and the normalised ingredients. The comparison is a query, not a computation.</td></tr>
+  <tr><td>Clerk</td><td>Accounts, already wired in previous assignments.</td></tr>
+  <tr><td>Vercel</td><td>Hosting, free tier.</td></tr>
+  <tr><td>schema.org JSON-LD</td><td>The data source. Recipe sites embed structured ingredients and ratings for Google. Free, keyless, no quota, no scraping heuristics.</td></tr>
+  <tr><td>Playwright</td><td>End-to-end tests, already set up in <code>wanderlist2</code>.</td></tr>
+  <tr><td>Supabase MCP</td><td>Already in my <code>.mcp.json</code>. Lets the agent work on the schema and run queries directly while I build the corpus.</td></tr>
+  <tr><td>Chrome DevTools MCP</td><td>For a design-focused project, the agent needs to see what it renders — inspect computed styles and check states rather than guess.</td></tr>
+  <tr><td>Claude Code</td><td>The build itself.</td></tr>
+  <tr><td>Vercel &amp; Supabase CLIs</td><td>Deploys and migrations from the terminal.</td></tr>
+</table>
+
+<footer>
+  Maya Rajesh · Design, Build, Ship · MPCS 51238 · Autumn 2026
+</footer>
+
+</div>
+</body>
+</html>
